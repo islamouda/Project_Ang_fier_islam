@@ -1,10 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { Component, OnInit} from '@angular/core';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database'
 import { Observable } from 'rxjs/Observable';
-import { Action } from 'rxjs/internal/scheduler/Action';
-import { ActionSequence } from 'protractor';
-import { Router} from '@angular/router';
-
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-myskill',
@@ -14,102 +11,108 @@ import { Router} from '@angular/router';
 export class MyskillComponent implements OnInit {
 
 
-  itemList:AngularFireList<any>
-  itemArray=[]
+  itemList: AngularFireList<any>
 
-data ={
-  name :  '',
-  phone :  '',
-  skill:  '',
-  province: '',
-  price:  '',
-  comments: ''
-}
+itemArray = []
 
+data = {
+  name : '' ,
+  phone :  '' ,
+  comments :  '' ,
+  skill :  '' ,
+  province :  '' ,
+  price :  ''
+ }
 
+myUid:any
 
+  constructor(public db:AngularFireDatabase , public router:Router) {
+    this.itemList = db.list('skills')
 
-  constructor(public db:AngularFireDatabase ,public route:Router) { 
-
-    this.itemList =db.list('skills')
-
-this.itemList.snapshotChanges().subscribe(actions=>{
-actions.forEach(action => {
-  let y = action.payload.toJSON()
-  y["$key"]=action.key
-  this.itemArray.push(y as ListItemClass)
+    this.itemList.snapshotChanges()
+    .subscribe(actions=>{
+          actions.forEach(action=>{
+            let y = action.payload.toJSON()
+            y["$key"] = action.key
+            this.itemArray.push(y as ListItemClass)
 
 })
- })
+    })
 
- console.log(this.itemArray)
-  }
+this.myUid =  localStorage.getItem('uid')
+    console.log(this.itemArray)
+
+
+   }
 
   ngOnInit() {
   }
 
 
-  editForm($key){
-    for(let value of this.itemArray){
-      if(value['$key']==$key){
+  editForm( $key){
+
+    for (let value of  this.itemArray) {
+      if (value['$key'] == $key) {
         console.log(value['$key'])
-        this.data.name=value['name']
-        this.data.phone=value['phone']
-        this.data.skill=value['skill']
-        this.data.province=value['province']
-        this.data.price=value['price']
-        this.data.comments=value['comments']
-  
+        this.data.name = value['name'] ;
+        this.data.phone = value['phone'] ;
+        this.data.comments = value['comments'] ;
+        this.data.skill = value['skill'] ;
+        this.data.province = value['province'] ;
+        this.data.price = value['price'] ;
       }
-      
+
+
     }
   }
 
-  onEdit($key){
+
+
+  onEdit( $key ){
+
     this.data.name
-        this.data.phone
-        this.data.skill
-        this.data.province
-        this.data.price
-        this.data.comments
-    // console.log("key: "+ $key +"name: "+ this.data.name +"phone: "+ this.data.phone +"skill: "+ this.data.skill +"province: "+ this.data.province +"price: "+ this.data.price )
+    this.data.phone
+    this.data.comments
+    this.data.skill
+    this.data.province
+    this.data.price
 
-    this.itemList.set($key,{
-      name : this.data.name,
-      phone : this.data.phone,
-      skill:  this.data.skill,
-      province: this.data.province,
-      price:  this.data.price,
-      comments: this.data.comments
-
-
+    this.itemList.set($key , {
+      name : this.data.name ,
+      phone :  this.data.phone ,
+      comments : this.data.comments ,
+      skill :  this.data.skill ,
+      province :  this.data.province ,
+      price :  this.data.price,
+      uid :  this.myUid
+      
     })
-   
-    this.itemArray=[]
 
-    
+    this.itemArray = []
+
+
+
   }
 
-  onDelete($key){
-
+  onDelete( $key){
     this.itemList.remove($key);
-    this.itemArray=[]
+    this.itemArray = []
   }
-
-
-
 
 
 }
 
 
 
+
+
 export class ListItemClass{
   $key: string;
-  name :string;
-    phone :string;
-    skill: string;
-    province: string;
-    price: string;
-    comments:string;
+  name : string;
+  phone :  string;
+  comments :  string;
+  skill :  string;
+  province : string;
+  price :  string;
+  
 }

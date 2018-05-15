@@ -3,7 +3,7 @@ import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { Action } from 'rxjs/internal/scheduler/Action';
 import { ActionSequence } from 'protractor';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +28,7 @@ data ={
   comments: ''
 }
 
-  constructor(public db:AngularFireDatabase ,public route:Router) { 
+  constructor(public db:AngularFireDatabase ,public route:Router ) { 
     
     this.itemList =db.list('skills')
 
@@ -42,61 +42,19 @@ data ={
      })
 
 
-
+    //  this.rout.params.subscribe(params => console.log(params))
   }
 
   ngOnInit() {
   }
- 
 
-  editForm($key){
-    for(let value of this.itemArray){
-      if(value['$key']==$key){
-        console.log(value['$key'])
-        this.data.name=value['name']
-        this.data.phone=value['phone']
-        this.data.skill=value['skill']
-        this.data.province=value['province']
-        this.data.price=value['price']
-        this.data.comments=value['comments']
   
-      }
-      
-    }
-  }
-
-  onEdit($key){
-    this.data.name
-        this.data.phone
-        this.data.skill
-        this.data.province
-        this.data.price
-        this.data.comments
-    // console.log("key: "+ $key +"name: "+ this.data.name +"phone: "+ this.data.phone +"skill: "+ this.data.skill +"province: "+ this.data.province +"price: "+ this.data.price )
-
-    this.itemList.set($key,{
-      name : this.data.name,
-      phone : this.data.phone,
-      skill:  this.data.skill,
-      province: this.data.province,
-      price:  this.data.price,
-      comments: this.data.comments
-
-
-    })
-   
-    this.itemArray=[]
-
+  moreInfo(key){
     
+    this.route.navigate(['details/'+key])
   }
 
-
-  onDelete($key){
-
-    this.itemList.remove($key);
-    this.itemArray=[]
-  }
-  
+ 
 }
 
 export class ListItemClass{

@@ -16,6 +16,9 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { environment } from '../environments/environment';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { Router} from '@angular/router';
+import { DetailsComponent } from './details/details.component';
+import { UserprofileComponent } from './userprofile/userprofile.component';
 
 
 const routes:Routes = [
@@ -26,6 +29,10 @@ const routes:Routes = [
   { path:'register', component:RegisterComponent },
   { path:'allskill', component:AllskillComponent },
   { path:"myskill", component:MyskillComponent },
+  { path:"details/:id", component:DetailsComponent },
+  { path:"userprofile", component:UserprofileComponent },
+  
+  
   
 ]
 
@@ -40,7 +47,9 @@ const routes:Routes = [
     LoginComponent,
     RegisterComponent,
     AllskillComponent,
-    MyskillComponent
+    MyskillComponent,
+    DetailsComponent,
+    UserprofileComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
-import { Observable } from 'rxjs/Observable';
+import { User } from 'firebase';
+import { Observable } from 'rxjs/observable';
+import * as firebase from 'firebase/app'
+import { Router} from '@angular/router';
+
+
 
 
 @Component({
@@ -12,32 +16,50 @@ import { Observable } from 'rxjs/Observable';
 export class NavbarComponent implements OnInit {
 
 
-user: Observable<firebase.user>;
-private isLoggedIn: Boolean= false;
+user: Observable<firebase.User>
+private isLoggedIn: boolean= false;
 private email:string;
-usre
 
 
 
 
-  constructor(public afAuth: AngularFireAuth) {
 
-this.user =afAuth.authState;
-
-firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    // User is signed in.
-  } else {
-    // No user is signed in.
-  }
-});
+  constructor(public afAuth:AngularFireAuth ,public route:Router ) {
 
 
+      // let status = localStorage.getItem('isLoggedIn')
+      // console.log(status)
+      // if (status === 'true'){
+      //   this.isLoggedIn =true;
+      // }else{
+      //   this.isLoggedIn =false;
+
+      // }
+
+
+
+    this.user= afAuth.authState;
+    this.afAuth.authState.subscribe(auth => { 
+      if(auth) {
+        this.isLoggedIn= true;
+        // this.route.navigate(['/home'])
+      } else {
+        this.isLoggedIn= false;
+    this.route.navigate(['/login'])
+      }});
+
+  
 
 
    }
 
   ngOnInit() {
   }
-
+  logout(){
+    this.afAuth.auth.signOut();
+    this.isLoggedIn=false;
+    localStorage.setItem('isLoggedIn','false')
+    this.route.navigate(['/login'])
+  }
+  
 } 
