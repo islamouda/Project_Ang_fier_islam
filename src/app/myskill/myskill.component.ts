@@ -21,7 +21,8 @@ data = {
   comments :  '' ,
   skill :  '' ,
   province :  '' ,
-  price :  ''
+  price :  '',
+  image:''
  }
 
 myUid:any
@@ -60,6 +61,7 @@ this.myUid =  localStorage.getItem('uid')
         this.data.skill = value['skill'] ;
         this.data.province = value['province'] ;
         this.data.price = value['price'] ;
+        this.data.image = value['image'];
       }
 
 
@@ -72,10 +74,11 @@ this.myUid =  localStorage.getItem('uid')
 
     this.data.name
     this.data.phone
-    this.data.comments
+    this.data.comments 
     this.data.skill
     this.data.province
     this.data.price
+    this.data.image
 
     this.itemList.set($key , {
       name : this.data.name ,
@@ -84,8 +87,8 @@ this.myUid =  localStorage.getItem('uid')
       skill :  this.data.skill ,
       province :  this.data.province ,
       price :  this.data.price,
-      uid :  this.myUid
-      
+      uid :  this.myUid,
+      image :this.data.image
     })
 
     this.itemArray = []
@@ -114,5 +117,6 @@ export class ListItemClass{
   skill :  string;
   province : string;
   price :  string;
+  image :string
   
 }

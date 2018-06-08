@@ -19,6 +19,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Router} from '@angular/router';
 import { DetailsComponent } from './details/details.component';
 import { UserprofileComponent } from './userprofile/userprofile.component';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 
 
 const routes:Routes = [
@@ -57,7 +59,8 @@ const routes:Routes = [
     FormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireStorageModule
   ],
   providers: [],
   bootstrap: [AppComponent]

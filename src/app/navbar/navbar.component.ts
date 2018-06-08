@@ -17,7 +17,7 @@ export class NavbarComponent implements OnInit {
 
 
 user: Observable<firebase.User>
-private isLoggedIn: boolean= false;
+public isLoggedIn: boolean= false;
 private email:string;
 
 

@@ -12,7 +12,7 @@ export class UserprofileComponent implements OnInit {
 
   email:string;
   myid:string;
-  itemList: AngularFireList<any>;
+  itemList: AngularFireList<any>
 
 itemArray = []
 
@@ -64,7 +64,7 @@ data = {
      
            
           
-             console.log(this.userKey)
+             console.log(this.data)
          
               
                      }
@@ -99,16 +99,16 @@ data = {
 
   upload(event) {
     const id = Math.random().toString(36).substring(2);
-    this.afStorage.upload(id, event.target.files[0]).then(()=>{
     this.ref = this.afStorage.ref(id);
-    this.ref.getDownloadURL().subscribe(url =>{
+    this.task = this.ref.put(event.target.files[0]);
+    this.downloadURL =  this.task.downloadURL()
+    this.downloadURL.subscribe(url => {
 
-        if (url) {
-    this.imageURL = url
-        
-        }
-
-         console.log(this.imageURL)
+      if (url) {
+       this.imageURL =  url
+      
+      }
+      console.log(this.imageURL)
 
       this.itemList.set(this.userKey , {
         name : this.data.name ,
@@ -122,36 +122,6 @@ data = {
       })
 
     })
-
-    })
-
-    // this.ref = this.afStorage.ref(id);
-    // this.task = this.ref.put(event.target.files[0]);
-    // this.downloadURL =  this.task.downloadURL();
-    // console.log(this.downloadURL)
-
-
-
-    // this.downloadURL.subscribe(url => {
-
-    //   if (url) {
-    //    this.imageURL = url
-      
-    //   }
-    //   console.log(this.imageURL)
-
-    //   this.itemList.set(this.userKey , {
-    //     name : this.data.name ,
-    //     phone :  this.data.phone ,
-    //     comments : this.data.comments ,
-    //     skill :  this.data.skill ,
-    //     province :  this.data.province ,
-    //     price :  this.data.price,
-    //     uid :  this.myid,
-    //     image: this.imageURL
-    //   })
-
-    // })
     
   }
 

@@ -22,7 +22,8 @@ data ={
   province: '',
   price:  '',
   comments: '',
-  email:''
+  email:'',
+  image:''
 }
 
 
@@ -51,6 +52,8 @@ data ={
           this.data.price =this.itemArray[0]['price']
           this.data.comments =this.itemArray[0]['comments']
           this.data.email =this.itemArray[0]['email']
+          this.data.image =this.itemArray[0]['image']
+          
 
 
 
@@ -85,5 +88,6 @@ export class ListItemClass{
     price: string;
     comments:string;
     email:string;
+    image:string;
     
 }

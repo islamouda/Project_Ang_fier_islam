@@ -41,13 +41,15 @@ itemList:AngularFireList<any>
   constructor(public db:AngularFireDatabase,private fire:AngularFireAuth , public route:Router) {
 
 this.itemList =db.list('skills')
+// this.itemList =db.list('users')
+
 let user= localStorage.getItem('email')
 this.email = user
 console.log(user)
 
 this.uid = localStorage.getItem('uid')
 console.log('uid :'+this.uid)
-
+ 
 
 
    }
